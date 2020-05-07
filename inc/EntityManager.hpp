@@ -23,6 +23,9 @@ public:
 	Entity					&AddEntity(std::string entityName);
 	std::vector<Entity *>	GetEntities() const;//return ref is better ?
 	unsigned int			GetEntityCount();
+
+	//Debug
+	void	PrintEntityComponent() const;
 };
 
 #endif

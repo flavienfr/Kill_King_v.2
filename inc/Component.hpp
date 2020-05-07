@@ -4,7 +4,7 @@
 # include "Entity.hpp"
 
 class Entity;
-
+//Make it has an interface ?
 class Component
 {
 private:

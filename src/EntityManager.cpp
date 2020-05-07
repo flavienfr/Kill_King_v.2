@@ -47,3 +47,12 @@ unsigned int EntityManager::GetEntityCount()
 {
 	return (entities.size());
 }
+
+void EntityManager::PrintEntityComponent() const
+{
+	for (int i = 0; i < entities.size(); i++)
+	{
+		std::cout << "Entity "<< i <<": \"" << entities[i]->name << "\"" << std::endl;
+		entities[i]->PrintComponents();
+	}
+}

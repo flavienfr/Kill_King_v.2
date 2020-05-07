@@ -1,11 +1,11 @@
 #ifndef TRANSFORMCOMPONENT_HPP
 # define TRANSFORMCOMPONENT_HPP
 
-# include "../EntityManager.hpp"
-# include "../../lib/glm/glm.hpp"
+# include "EntityManager.hpp"
+# include "glm.hpp"
 # include <SDL2/SDL.h>
-# include "../Game.hpp"
-# include "../Component.hpp"
+# include "Game.hpp"
+# include "Component.hpp"
 
 class TransformComponent : public Component
 {

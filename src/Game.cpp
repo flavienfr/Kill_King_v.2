@@ -37,16 +37,28 @@ void Game::Initialize(int width, int height)
         std::cerr << "Error creating SDL window." << std::endl;
         return;
     }
-    this->renderer = SDL_CreateRenderer(this->window, -1, 0);//SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+    this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED);//SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
     if (!this->renderer)
     {
         std::cerr << "Error creating SDL renderer." << std::endl;
         return;
     }
 
+	LoadLevel(0);
+
     this->isRunning = true;
     return;
 }
+
+void Game::LoadLevel(int levelNumber)
+{
+	Entity &test = manager.AddEntity("projectile");
+	test.AddComponent<TransformComponent>(0, 0, 50, 50, 25, 25, 1);
+	test.AddComponent<TransformComponent>(0, 50, 100, 200, 25, 25, 1);
+
+	manager.PrintEntityComponent();
+}
+
 
 void Game::ProcessInput()
 {
@@ -127,13 +139,17 @@ void Game::Update()
     deltaTime = (deltaTime > 0.05f) ? 0.05f : deltaTime;
     this->ticksLastFrame = SDL_GetTicks();
 
-
+	manager.Update(deltaTime);
 }
 
 void Game::Render()
 {
     SDL_SetRenderDrawColor(this->renderer, 21, 21, 21, 255);
     SDL_RenderClear(this->renderer);
+
+	if (manager.HasNoEntities())
+		return ;
+	manager.Render();
 
 
     SDL_RenderPresent(this->renderer);

@@ -5,7 +5,7 @@ Entity::Entity(EntityManager &manager) : manager(manager)
 	this->isActive = true;
 }
 
-Entity::Entity(EntityManager &manager,std::string name) : manager(manager), name(name)
+Entity::Entity(EntityManager &manager, std::string name) : manager(manager), name(name)
 {
 	this->isActive = true;
 }
@@ -34,4 +34,10 @@ void Entity::Destroy()
 bool Entity::IsActive() const
 {
 	return (this->isActive);
+}
+
+void Entity::PrintComponents() const
+{
+    for (auto mapElement: componentTypeMap)
+        std::cout << "    Component<" << mapElement.first->name() << ">" << std::endl;
 }

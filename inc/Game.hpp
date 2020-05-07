@@ -6,9 +6,9 @@
 # include <SDL2/SDL_ttf.h>
 # include <iostream>
 # include "Constants.hpp"
-//# include "Entity.hpp"
+# include "Entity.hpp"
 # include "EntityManager.hpp"
-
+# include "TransformComponent.hpp"
 
 class Game
 {
