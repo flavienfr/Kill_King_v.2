@@ -12,15 +12,19 @@ SRC =	src/main.cpp \
 		src/Component.cpp \
 		src/TextureManager.cpp \
 		src/AssetManager.cpp \
-		src/Components/TransformComponent.cpp
+		src/Animation.cpp \
+		src/Components/TransformComponent.cpp \
+		src/Components/SpriteComponent.cpp \
+		src/Components/KeyBoardControlComponent.cpp
 
 OBJS = $(SRC:.cpp=.o)
+
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 	$(CC) $(INC) $(OBJS) $(FLAG) -o $(NAME)  
-# do i need to put $(INC) below ?
+
 .cpp.o : $(SRC)
 	$(CC) $(MYINC) -c $< -o $(<:.cpp=.o)
 

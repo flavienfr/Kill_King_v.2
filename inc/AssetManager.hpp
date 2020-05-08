@@ -6,6 +6,8 @@
 # include "TextureManager.hpp"
 # include "EntityManager.hpp"
 
+class EntityManager;
+
 class AssetManager
 {
 private:

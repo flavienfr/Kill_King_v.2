@@ -8,7 +8,12 @@
 # include "Constants.hpp"
 # include "Entity.hpp"
 # include "EntityManager.hpp"
+# include "AssetManager.hpp"
 # include "TransformComponent.hpp"
+# include "SpriteComponent.hpp"
+# include "KeyBoardControlComponent.hpp"
+
+class AssetManager;
 
 class Game
 {
@@ -20,6 +25,8 @@ public:
 	~Game();
 
 	static SDL_Renderer *renderer;
+	static AssetManager *assetManager;
+	static SDL_Event	event;
 	int	ticksLastFrame;
 
 	bool IsRunning() const;

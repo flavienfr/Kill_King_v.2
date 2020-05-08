@@ -1,7 +1,9 @@
 # include "Game.hpp"
 
-EntityManager manager;
-SDL_Renderer *Game::renderer;
+EntityManager	manager;
+AssetManager	*Game::assetManager = new AssetManager(&manager);
+SDL_Renderer	*Game::renderer;
+SDL_Event		Game::event;
 
 Game::Game() : isRunning(false), ticksLastFrame(0)
 {
@@ -52,9 +54,22 @@ void Game::Initialize(int width, int height)
 
 void Game::LoadLevel(int levelNumber)
 {
-	Entity &test = manager.AddEntity("projectile");
-	test.AddComponent<TransformComponent>(0, 0, 50, 50, 25, 25, 1);
-	test.AddComponent<TransformComponent>(0, 50, 100, 200, 25, 25, 1);
+	assetManager->AddTexture("tank_img", "./assets/images/tank-big-right.png");
+	assetManager->AddTexture("chopper_img", "./assets/images/chopper-spritesheet.png");
+	assetManager->AddTexture("radar_img", "./assets/images/radar.png");
+
+	Entity &chopperEntity = manager.AddEntity("chopper");
+	chopperEntity.AddComponent<TransformComponent>(200, 300, 0, 0, 32, 32, 3);
+	chopperEntity.AddComponent<SpriteComponent>("chopper_img", 2, 100, true, false);
+	chopperEntity.AddComponent<KeyBoardControlComponent>("up", "down", "right", "left", "space");
+
+	Entity &tankEntity = manager.AddEntity("Tank");
+	tankEntity.AddComponent<TransformComponent>(0, 0, 50, 50, 32, 32, 2);
+	tankEntity.AddComponent<SpriteComponent>("tank_img");
+
+	Entity &radarEntity = manager.AddEntity("radar");
+	radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
+	radarEntity.AddComponent<SpriteComponent>("radar_img", 8, 100, false, true);
 
 	manager.PrintEntityComponent();
 }
@@ -62,71 +77,15 @@ void Game::LoadLevel(int levelNumber)
 
 void Game::ProcessInput()
 {
-    SDL_Event event;
-
     SDL_PollEvent(&event);
     switch (event.type)
 	{
         case SDL_QUIT:
             this->isRunning = false;
             break;
-        case SDL_KEYDOWN:
-		{
-			switch (event.key.keysym.scancode)
-			{
-				/*case SDL_SCANCODE_W:
- 					player->up = 1;
-					break;
-				case SDL_SCANCODE_S:
-					player->down = 1;
-					break;
-				case SDL_SCANCODE_A:
-					player->left = 1;
-					break;
-				case SDL_SCANCODE_D:
-					player->right = 1;
-					break;
-				case SDL_SCANCODE_LSHIFT:
-					player->speed = 1;
-					break;
-				case SDL_SCANCODE_SPACE:
-					if (player->dash != -1)
-						player->dash = 1;
-					break;*/
-				case SDL_SCANCODE_ESCAPE:
-					isRunning = false;
-					break;
-				default:
-           			break;
-			}
-		}
-		case (SDL_KEYUP):
-		{
-			switch (event.key.keysym.scancode)
-			{
-				/*case SDL_SCANCODE_W:
- 					player->up = 0;
-					break;
-				case SDL_SCANCODE_S:
-					player->down = 0;
-					break;
-				case SDL_SCANCODE_A:
-					player->left = 0;
-					break;
-				case SDL_SCANCODE_D:
-					player->right = 0;
-					break;
-				case SDL_SCANCODE_LSHIFT:
-					player->speed = 0;
-					break;
-				case SDL_SCANCODE_SPACE:
-					player->dash = 0;
-					break;*/
-				default:
-           			break;
-			}
-		}
-
+		case SDL_KEYDOWN:
+			if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+				isRunning = false;
         default:
             break;
     }

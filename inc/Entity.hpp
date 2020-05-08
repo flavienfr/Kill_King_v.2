@@ -37,6 +37,8 @@ public:
 	T &AddComponent(Targs&&... args);
 	template <typename T>
 	T* GetComponent();
+	template <typename T>
+	bool HasComponent() const;
 };
 
 template <typename T, typename ...Targs>
@@ -56,6 +58,15 @@ template <typename T>
 T	*Entity::GetComponent()
 {
 	return (static_cast<T *>(componentTypeMap[&typeid(T)]));
+}
+
+template <typename T>
+bool Entity::HasComponent() const
+{
+	for (auto &componentType: componentTypeMap)
+		if (componentType.first == &typeid(T))
+			return (true);
+	return (false);
 }
 
 #endif
