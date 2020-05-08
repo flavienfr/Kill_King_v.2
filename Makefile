@@ -9,6 +9,7 @@ SRC =	src/main.cpp \
 		src/Game.cpp \
 		src/Entity.cpp \
 		src/EntityManager.cpp \
+		src/Component.cpp \
 		src/TextureManager.cpp \
 		src/AssetManager.cpp \
 		src/Animation.cpp \

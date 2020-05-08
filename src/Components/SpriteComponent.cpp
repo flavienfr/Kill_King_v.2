@@ -68,8 +68,8 @@ void SpriteComponent::Update(float deltaTime)
 		srcRectangle.x = srcRectangle.w * static_cast<int>((SDL_GetTicks() / animationSpeed) % numFrames);
 	srcRectangle.y = animationIndex * srcRectangle.h;//gustavo put transform->height
 	
-	dstRectangle.x = static_cast<int>(transform->position.x);
-	dstRectangle.y = static_cast<int>(transform->position.y);
+	dstRectangle.x = static_cast<int>(transform->position.x) - (isFixed ? 0 : Game::camera.x);
+	dstRectangle.y = static_cast<int>(transform->position.y) - (isFixed ? 0 : Game::camera.y);
 	dstRectangle.w = transform->widht * transform->scale;
 	dstRectangle.h = transform->height * transform->scale;
 }

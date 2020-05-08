@@ -41,26 +41,26 @@ void KeyBoardControlComponent::Update(float deltaTime)
 
 		if (keyCode == upKey)
 		{
-			transform->velocity.y = -100;
+			transform->velocity.y = -500;//change that
 			transform->velocity.x = 0;
 			sprite->Play("upAnimation");
 		}
 		if (keyCode == downKey)
 		{
-			transform->velocity.y = 100;
+			transform->velocity.y = 500;//change that
 			transform->velocity.x = 0;
 			sprite->Play("downAnimation");
 		}
 		if (keyCode == rightKey)
 		{
 			transform->velocity.y = 0;
-			transform->velocity.x = 100;
+			transform->velocity.x = 500;//change that
 			sprite->Play("rightAnimation");
 		}
 		if (keyCode == leftKey)
 		{
 			transform->velocity.y = 0;
-			transform->velocity.x = -100;
+			transform->velocity.x = -500;//change that
 			sprite->Play("leftAnimation");
 		}
 		if (keyCode == shootKey)

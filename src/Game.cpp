@@ -5,6 +5,7 @@ AssetManager	*Game::assetManager = new AssetManager(&manager);
 SDL_Renderer	*Game::renderer;
 SDL_Event		Game::event;
 Map				*map;
+SDL_Rect		Game::camera = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
 
 Game::Game() : isRunning(false), ticksLastFrame(0)
 {
@@ -53,6 +54,8 @@ void Game::Initialize(int width, int height)
     return;
 }
 
+Entity &playerEntity = manager.AddEntity("chopper", PLAYER_LAYER);
+
 void Game::LoadLevel(int levelNumber)
 {
 	assetManager->AddTexture("tank_img", "./assets/images/tank-big-right.png");
@@ -60,23 +63,22 @@ void Game::LoadLevel(int levelNumber)
 	assetManager->AddTexture("radar_img", "./assets/images/radar.png");
 	assetManager->AddTexture("jungle_tilemaps", "./assets/tilemaps/jungle.png");
 
-	map = new Map("jungle_tilemaps", 1 , 32);
+	map = new Map("jungle_tilemaps", 2 , 32);
 	map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
 
-	Entity &chopperEntity = manager.AddEntity("chopper");
-	chopperEntity.AddComponent<TransformComponent>(200, 300, 0, 0, 32, 32, 3);
-	chopperEntity.AddComponent<SpriteComponent>("chopper_img", 2, 100, true, false);
-	chopperEntity.AddComponent<KeyBoardControlComponent>("up", "down", "right", "left", "space");
+	playerEntity.AddComponent<TransformComponent>(20, 30, 0, 0, 32, 32, 2);
+	playerEntity.AddComponent<SpriteComponent>("chopper_img", 2, 100, true, false);
+	playerEntity.AddComponent<KeyBoardControlComponent>("up", "down", "right", "left", "space");
 
-	Entity &tankEntity = manager.AddEntity("Tank");
+	Entity &tankEntity = manager.AddEntity("Tank", ENEMY_LAYER);
 	tankEntity.AddComponent<TransformComponent>(0, 0, 50, 50, 32, 32, 2);
 	tankEntity.AddComponent<SpriteComponent>("tank_img");
 
-	Entity &radarEntity = manager.AddEntity("radar");
+	Entity &radarEntity = manager.AddEntity("radar", UI_LAYER);
 	radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
 	radarEntity.AddComponent<SpriteComponent>("radar_img", 8, 100, false, true);
 
-	manager.PrintEntityComponent();
+	//manager.PrintEntityComponent();
 }
 
 
@@ -104,6 +106,8 @@ void Game::Update()
     this->ticksLastFrame = SDL_GetTicks();
 
 	manager.Update(deltaTime);
+
+	HandleCameraMovement();//before update ?
 }
 
 void Game::Render()
@@ -117,6 +121,22 @@ void Game::Render()
 
 
     SDL_RenderPresent(this->renderer);
+}
+
+void Game::HandleCameraMovement()
+{
+	TransformComponent *PlayerTransform = playerEntity.GetComponent<TransformComponent>();
+
+	camera.x = PlayerTransform->position.x - (camera.w / 2);
+	camera.y = PlayerTransform->position.y - (camera.h / 2);
+	//camera.x = static_cast<int>(PlayerTransform->position.x) - (static_cast<int>(WINDOW_WIDTH)/ 2);
+	//camera.y = static_cast<int>(PlayerTransform->position.y) - (static_cast<int>(WINDOW_HEIGHT) / 2);
+
+	camera.x = camera.x < 0 ? 0 : camera.x;
+	camera.y = camera.y < 0 ? 0 : camera.y;
+	//CHange this by border of map (widhtMap + camera.w)
+	camera.x = camera.x > camera.w ? camera.w : camera.x;
+	camera.y = camera.y > camera.h ? camera.h : camera.y;
 }
 
 void Game::Destroy()

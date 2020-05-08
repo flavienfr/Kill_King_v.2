@@ -5,6 +5,7 @@
 # include <string>
 # include <iostream>
 # include <map>
+# include "Constants.hpp"
 # include "Component.hpp"
 # include "EntityManager.hpp"
 
@@ -21,10 +22,11 @@ private:
 
 public:
 	Entity(EntityManager &manager);
-	Entity(EntityManager &manager,std::string name);
+	Entity(EntityManager &manager,std::string name, LayerType layer);
 	virtual ~Entity();
 
 	std::string	name;//put it private ?
+	LayerType layer;//put it private ?
 
 	void Update(float deltaTime);
 	void Render();

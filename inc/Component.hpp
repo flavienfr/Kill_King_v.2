@@ -10,13 +10,14 @@ class Component
 private:
 	
 public:
-	virtual ~Component(){};
+	Component();
+	virtual ~Component();
 
 	Entity *owner;
 
-	virtual	void Initialize(){};
-	virtual	void Update(float deltaTime){};
-	virtual	void Render(){};
+	virtual	void Initialize();
+	virtual	void Update(float deltaTime);
+	virtual	void Render();
 };
 
 #endif

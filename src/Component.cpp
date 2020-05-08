@@ -1,5 +1,5 @@
 #include "Component.hpp"
-//dell me
+
 Component::Component()
 {
 }

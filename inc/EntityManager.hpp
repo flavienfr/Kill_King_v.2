@@ -20,8 +20,9 @@ public:
 	void 					Update(float deltaTime);
 	void 					Render();
 	bool 					HasNoEntities();
-	Entity					&AddEntity(std::string entityName);
+	Entity					&AddEntity(std::string entityName, LayerType layer);
 	std::vector<Entity *>	GetEntities() const;//return ref is better ?
+	std::vector<Entity *>	GetEntitiesByLayer(LayerType layer) const;//return ref is better ?
 	unsigned int			GetEntityCount();
 
 	//Debug

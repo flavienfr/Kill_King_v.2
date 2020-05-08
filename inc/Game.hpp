@@ -28,11 +28,13 @@ public:
 	static SDL_Renderer *renderer;
 	static AssetManager *assetManager;
 	static SDL_Event	event;
+	static SDL_Rect		camera;
 	int	ticksLastFrame;
 
 	bool IsRunning() const;
 	void Initialize(int width, int height);
 	void LoadLevel(int levelNumber);
+	void HandleCameraMovement();
 	void ProcessInput();
 	void Update();
 	void Render();
