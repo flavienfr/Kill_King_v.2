@@ -9,16 +9,16 @@ SRC =	src/main.cpp \
 		src/Game.cpp \
 		src/Entity.cpp \
 		src/EntityManager.cpp \
-		src/Component.cpp \
 		src/TextureManager.cpp \
 		src/AssetManager.cpp \
 		src/Animation.cpp \
+		src/Map.cpp \
 		src/Components/TransformComponent.cpp \
 		src/Components/SpriteComponent.cpp \
-		src/Components/KeyBoardControlComponent.cpp
+		src/Components/KeyBoardControlComponent.cpp \
+		src/Components/TileComponent.cpp
 
 OBJS = $(SRC:.cpp=.o)
-
 
 all : $(NAME)
 

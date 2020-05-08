@@ -12,6 +12,7 @@
 # include "TransformComponent.hpp"
 # include "SpriteComponent.hpp"
 # include "KeyBoardControlComponent.hpp"
+# include "Map.hpp"
 
 class AssetManager;
 

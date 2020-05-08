@@ -1,9 +1,10 @@
 # include "Game.hpp"
 
-EntityManager	manager;
+EntityManager	manager;//mettre ca static public ?
 AssetManager	*Game::assetManager = new AssetManager(&manager);
 SDL_Renderer	*Game::renderer;
 SDL_Event		Game::event;
+Map				*map;
 
 Game::Game() : isRunning(false), ticksLastFrame(0)
 {
@@ -57,6 +58,10 @@ void Game::LoadLevel(int levelNumber)
 	assetManager->AddTexture("tank_img", "./assets/images/tank-big-right.png");
 	assetManager->AddTexture("chopper_img", "./assets/images/chopper-spritesheet.png");
 	assetManager->AddTexture("radar_img", "./assets/images/radar.png");
+	assetManager->AddTexture("jungle_tilemaps", "./assets/tilemaps/jungle.png");
+
+	map = new Map("jungle_tilemaps", 1 , 32);
+	map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
 
 	Entity &chopperEntity = manager.AddEntity("chopper");
 	chopperEntity.AddComponent<TransformComponent>(200, 300, 0, 0, 32, 32, 3);
