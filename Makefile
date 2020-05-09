@@ -1,33 +1,25 @@
 CC = clang++
+NAME = killking
+BUILD_DIR ?= ./build
+SRC_DIRS ?= ./src
+MKDIR_P ?= mkdir -p
 INC =	-I"./lib/lua" -L"./lib/lua" -llua5.3 \
 		-lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
-MYINC =	-Ilib/glm \
-		-Iinc
-NAME = killking
+MYINC =	-Ilib/glm -Iinc
 FLAG = -w -std=c++14 -Wfatal-errors # -Wall -Wextra -Werror
-SRC =	src/main.cpp \
-		src/Game.cpp \
-		src/Entity.cpp \
-		src/EntityManager.cpp \
-		src/Component.cpp \
-		src/TextureManager.cpp \
-		src/AssetManager.cpp \
-		src/Animation.cpp \
-		src/Map.cpp \
-		src/Components/TransformComponent.cpp \
-		src/Components/SpriteComponent.cpp \
-		src/Components/KeyBoardControlComponent.cpp \
-		src/Components/TileComponent.cpp
 
-OBJS = $(SRC:.cpp=.o)
+SRC := $(shell find $(SRC_DIRS) -name *.cpp)
+
+OBJS := $(SRC:%=$(BUILD_DIR)/%.o)
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(INC) $(OBJS) $(FLAG) -o $(NAME)  
+	$(CC) $(INC) $(OBJS) $(FLAG) -o $(NAME)
 
-.cpp.o : $(SRC)
-	$(CC) $(MYINC) -c $< -o $(<:.cpp=.o)
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(MYINC) -c $< -o $@
 
 clean :
 	rm -f $(OBJS)

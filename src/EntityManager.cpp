@@ -76,3 +76,21 @@ void EntityManager::PrintEntityComponent() const
 		entities[i]->PrintComponents();
 	}
 }
+
+std::string EntityManager::CheckEntityCollisions(Entity &myEntity) const
+{//not opti
+	ColliderComponent *myCollider = myEntity.GetComponent<ColliderComponent>();
+
+	for (auto &entity: entities)
+	{
+		if (entity->name == myEntity.name || entity->name == "Tile")
+			continue ;
+		if (entity->hasComponent<ColliderComponent>())
+		{
+			ColliderComponent *otherCollider = entity->GetComponent<ColliderComponent>();
+			if (Collision::CheckRectCollision(myCollider->collider, otherCollider->collider))
+				return (otherCollider->colliderTag);
+		}
+	}
+	return (std::string());
+}

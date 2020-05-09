@@ -1,6 +1,0 @@
-GAME TO DO LIST
-
-- obj folder (MAkefile)
-- With height of map calculation
-- Bigger tileMap possibility
-- Colision betwenn border map

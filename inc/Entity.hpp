@@ -41,6 +41,8 @@ public:
 	T* GetComponent();
 	template <typename T>
 	bool HasComponent() const;
+	template <typename T>
+	bool hasComponent() const;
 };
 
 template <typename T, typename ...Targs>
@@ -69,6 +71,12 @@ bool Entity::HasComponent() const
 		if (componentType.first == &typeid(T))
 			return (true);
 	return (false);
+}
+
+template <typename T>
+bool Entity::hasComponent() const
+{
+	return (componentTypeMap.count(&typeid(T)));
 }
 
 #endif

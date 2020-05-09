@@ -13,6 +13,7 @@
 # include "SpriteComponent.hpp"
 # include "KeyBoardControlComponent.hpp"
 # include "Map.hpp"
+# include "ColliderComponent.hpp"
 
 class AssetManager;
 
@@ -33,12 +34,15 @@ public:
 
 	bool IsRunning() const;
 	void Initialize(int width, int height);
-	void LoadLevel(int levelNumber);
-	void HandleCameraMovement();
 	void ProcessInput();
 	void Update();
 	void Render();
 	void Destroy();
+
+	void LoadLevel(int levelNumber);
+	void HandleCameraMovement();
+	void CheckCollisions();
+
 };
 
 #endif

@@ -69,10 +69,13 @@ void Game::LoadLevel(int levelNumber)
 	playerEntity.AddComponent<TransformComponent>(20, 30, 0, 0, 32, 32, 2);
 	playerEntity.AddComponent<SpriteComponent>("chopper_img", 2, 100, true, false);
 	playerEntity.AddComponent<KeyBoardControlComponent>("up", "down", "right", "left", "space");
+	playerEntity.AddComponent<ColliderComponent>("player", 20, 30, 32, 32);//same value as transform
 
 	Entity &tankEntity = manager.AddEntity("Tank", ENEMY_LAYER);
-	tankEntity.AddComponent<TransformComponent>(0, 0, 50, 50, 32, 32, 2);
+	tankEntity.AddComponent<TransformComponent>(0, 400, 20, 0, 32, 32, 2);
 	tankEntity.AddComponent<SpriteComponent>("tank_img");
+	tankEntity.AddComponent<ColliderComponent>("enemy", 0, 400, 32, 32);//same value as transform
+
 
 	Entity &radarEntity = manager.AddEntity("radar", UI_LAYER);
 	radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
@@ -108,6 +111,7 @@ void Game::Update()
 	manager.Update(deltaTime);
 
 	HandleCameraMovement();//before update ?
+	CheckCollisions();
 }
 
 void Game::Render()
@@ -137,6 +141,15 @@ void Game::HandleCameraMovement()
 	//CHange this by border of map (widhtMap + camera.w)
 	camera.x = camera.x > camera.w ? camera.w : camera.x;
 	camera.y = camera.y > camera.h ? camera.h : camera.y;
+}
+
+void Game::CheckCollisions()
+{
+	std::string collisionTagType = manager.CheckEntityCollisions(playerEntity);//return enum
+	if (collisionTagType == "enemy")
+	{
+		isRunning = false;
+	}
 }
 
 void Game::Destroy()
