@@ -3,7 +3,9 @@
 
 # include <SDL2/SDL.h>
 # include "Game.hpp"
+# include "EntityManager.hpp"
 # include "TransformComponent.hpp"
+
 
 class ColliderComponent : public Component
 {
@@ -19,9 +21,11 @@ public:
 	SDL_Rect			srcRect;
 	SDL_Rect			dstRect;
 	TransformComponent	*transform;
+	SDL_Texture			*texture;
 
 	void Initialize() override;
 	void Update(float deltaTime) override;
+	void Render() override;
 };
 
 #endif

@@ -3,8 +3,10 @@
 
 # include <map>
 # include <string>
+# include <SDL2/SDL_ttf.h>
 # include "TextureManager.hpp"
 # include "EntityManager.hpp"
+# include "TransformComponent.hpp"
 
 class EntityManager;
 

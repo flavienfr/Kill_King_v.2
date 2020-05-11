@@ -3,8 +3,8 @@
 
 # include <SDL2/SDL.h>
 # include "glm.hpp"
-# include "Component.hpp"
-# include "TextureManager.hpp"
+# include "EntityManager.hpp"
+# include "AssetManager.hpp"
 
 class TileComponent : public Component
 {

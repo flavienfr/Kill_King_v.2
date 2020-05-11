@@ -3,6 +3,8 @@
 ColliderComponent::ColliderComponent(std::string colliderTag, int x, int y, int width, int height) :
 colliderTag(colliderTag), collider({x, y, width, height})
 {
+	//put collider_img in string option
+	texture = Game::assetManager->GetTexture("collider_img");
 }
 
 ColliderComponent::~ColliderComponent()
@@ -11,11 +13,11 @@ ColliderComponent::~ColliderComponent()
 
 void ColliderComponent::Initialize()
 {
-	if (owner->hasComponent<TransformComponent>())
+	if (owner->hasComponent<TransformComponent>())//mettre des protection 
 	{
 		transform = owner->GetComponent<TransformComponent>();
 		srcRect = {0, 0, transform->widht, transform->height};
-		dstRect = {collider.x, collider.y, collider.w, collider.y};
+		dstRect = {collider.x, collider.y, collider.w, collider.h};
 	}
 }
 
@@ -27,7 +29,14 @@ void ColliderComponent::Update(float deltaTime)
 		collider.y = static_cast<int>(transform->position.y);
 		collider.w = transform->widht * transform->scale;
 		collider.h = transform->height * transform->scale;
-		dstRect.x = collider.x - Game::camera.x;//what need to understand
-		dstRect.y = collider.y - Game::camera.y;//what need to understand
+		dstRect.x = collider.x - Game::camera.x;
+		dstRect.y = collider.y - Game::camera.y;
+		dstRect.w = collider.w;//dst for camera
+		dstRect.h = collider.h;//dst for camera
 	}
+}
+
+void ColliderComponent::Render()
+{
+	TextureManager::Draw(texture, srcRect, dstRect, SDL_FLIP_NONE);
 }

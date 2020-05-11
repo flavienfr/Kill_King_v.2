@@ -1,13 +1,12 @@
 #ifndef KEYBOARDCONTROLCOMPONENT_HPP
 # define KEYBOARDCONTROLCOMPONENT_HPP
 
-# include <string>
 # include "Game.hpp"
-# include "Component.hpp"
+# include "EntityManager.hpp"
 # include "TransformComponent.hpp"
 # include "SpriteComponent.hpp"
 
-class SpriteComponent;//why
+class SpriteComponent;//erase that ?
 
 class KeyBoardControlComponent : public Component
 {

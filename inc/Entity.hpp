@@ -6,11 +6,11 @@
 # include <iostream>
 # include <map>
 # include "Constants.hpp"
-# include "Component.hpp"
 # include "EntityManager.hpp"
+# include "Component.hpp"
 
-class Component;
 class EntityManager;
+class Component;
 
 class Entity
 {

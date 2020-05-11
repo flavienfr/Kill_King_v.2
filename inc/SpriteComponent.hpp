@@ -2,12 +2,8 @@
 # define SPRITECOMPONENT_HPP
 
 # include <SDL2/SDL.h>
-# include <map>
-# include "Game.hpp"
 # include "TextureManager.hpp"
 # include "AssetManager.hpp"
-# include "Component.hpp"
-# include "TransformComponent.hpp"
 # include "Animation.hpp"
 
 class TransformComponent;

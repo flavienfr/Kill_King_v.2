@@ -77,20 +77,38 @@ void EntityManager::PrintEntityComponent() const
 	}
 }
 
-std::string EntityManager::CheckEntityCollisions(Entity &myEntity) const
-{//not opti
-	ColliderComponent *myCollider = myEntity.GetComponent<ColliderComponent>();
+CollisionType EntityManager::CheckEntityCollisions() const
+{//entity->name == "Tile"
 
-	for (auto &entity: entities)
+    for (int i = 0; i < entities.size() - 1; i++)
 	{
-		if (entity->name == myEntity.name || entity->name == "Tile")
-			continue ;
-		if (entity->hasComponent<ColliderComponent>())
+		auto& thisEntity = entities[i];
+        if (thisEntity->HasComponent<ColliderComponent>())
 		{
-			ColliderComponent *otherCollider = entity->GetComponent<ColliderComponent>();
-			if (Collision::CheckRectCollision(myCollider->collider, otherCollider->collider))
-				return (otherCollider->colliderTag);
+            ColliderComponent* thisCollider = thisEntity->GetComponent<ColliderComponent>();
+            for (int j = i + 1; j < entities.size(); j++)
+			{
+                auto& thatEntity = entities[j];
+				if (thisEntity->name != thatEntity->name && thatEntity->hasComponent<ColliderComponent>())
+				{
+					ColliderComponent *thatCollider = thatEntity->GetComponent<ColliderComponent>();
+					if (Collision::CheckRectCollision(thisCollider->collider, thatCollider->collider))
+					{
+						if (thisCollider->colliderTag == "PLAYER" && thatCollider->colliderTag == "ENEMY")
+							return (PLAYER_ENEMY_COLLISION);
+						if (thisCollider->colliderTag == "PLAYER" && thatCollider->colliderTag == "PROJECTILE")
+							return (PLAYER_PROJECTILE_COLLISION);
+						if (thisCollider->colliderTag == "PLAYER" && thatCollider->colliderTag == "VEGETATION")
+							return (PLAYER_VEGETATION_COLLISION);
+						if (thisCollider->colliderTag == "ENEMY" && thatCollider->colliderTag == "FRIENDLY_PROJECTILE")
+							return (ENEMY_PROJECTILE_COLLISION);
+						if (thisCollider->colliderTag == "PLAYER" && thatCollider->colliderTag == "LEVEL_COMPLETE")
+							return (PLAYER_LEVEL_COMPLETE_COLLISION);
+					}
+				}
+			}
 		}
+
 	}
-	return (std::string());
+	return (NO_COLLISION);
 }

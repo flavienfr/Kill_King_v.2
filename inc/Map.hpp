@@ -1,11 +1,11 @@
 #ifndef MAP_HPP
 # define MAP_HPP
 
-# include <string>
 # include <fstream>
 # include "Game.hpp"
-# include "TileComponent.hpp"
+# include "Map.hpp"
 # include "EntityManager.hpp"
+# include "TileComponent.hpp"
 
 extern EntityManager manager;
 

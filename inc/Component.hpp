@@ -1,8 +1,6 @@
 #ifndef COMPONENT_HPP
 # define COMPONENT_HPP
 
-# include "Entity.hpp"
-
 class Entity;
 
 class Component

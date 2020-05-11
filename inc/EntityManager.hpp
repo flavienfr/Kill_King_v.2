@@ -3,6 +3,7 @@
 
 # include "Entity.hpp"
 # include "Component.hpp"
+#include "EntityManager.hpp"
 # include "Collision.hpp"
 # include "ColliderComponent.hpp"
 # include <vector>
@@ -26,7 +27,7 @@ public:
 	std::vector<Entity *>	GetEntities() const;//return ref is better ?
 	std::vector<Entity *>	GetEntitiesByLayer(LayerType layer) const;//return ref is better ?
 	unsigned int			GetEntityCount();
-	std::string				CheckEntityCollisions(Entity &entity) const;
+	CollisionType			CheckEntityCollisions() const;
 
 	//Debug
 	void	PrintEntityComponent() const;

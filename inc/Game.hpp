@@ -5,15 +5,19 @@
 # include <SDL2/SDL_image.h>
 # include <SDL2/SDL_ttf.h>
 # include <iostream>
-# include "Constants.hpp"
+# include "glm.hpp"
+
 # include "Entity.hpp"
+# include "Component.hpp"
 # include "EntityManager.hpp"
+# include "Constants.hpp"
+# include "Game.hpp"
 # include "AssetManager.hpp"
+# include "Map.hpp"
 # include "TransformComponent.hpp"
 # include "SpriteComponent.hpp"
-# include "KeyBoardControlComponent.hpp"
-# include "Map.hpp"
 # include "ColliderComponent.hpp"
+# include "KeyBoardControlComponent.hpp"
 
 class AssetManager;
 
@@ -42,6 +46,9 @@ public:
 	void LoadLevel(int levelNumber);
 	void HandleCameraMovement();
 	void CheckCollisions();
+
+	void ProcessNextLevel();
+	void ProcessGameOver();
 
 };
 
