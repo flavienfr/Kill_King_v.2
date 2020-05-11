@@ -28,7 +28,9 @@ enum LayerType
 	PLAYER_LAYER,
 	PROJECTILE_LAYER,
 	UI_LAYER
-};
-const unsigned int NUM_LAYER = 6;
+}; const unsigned int NUM_LAYER = 7;
+
+const SDL_Color WHITE_COLOR = {255, 255, 255, 255};
+const SDL_Color GREEN_COLOR = {0, 255, 0, 255};
 
 #endif

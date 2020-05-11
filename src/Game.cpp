@@ -27,6 +27,11 @@ void Game::Initialize(int width, int height)
         std::cerr << "Error initializing SDL." << std::endl;
         return;
     }
+	if (TTF_Init() != 0)
+	{
+		std::cerr << " Error initialising SDL TTF" << std::endl;
+		return ;
+	}
     this->window = SDL_CreateWindow
 	(
         NULL,
@@ -64,6 +69,7 @@ void Game::LoadLevel(int levelNumber)
 	assetManager->AddTexture("jungle_tilemaps", "./assets/tilemaps/jungle.png");
 	assetManager->AddTexture("collider_img", "./assets/images/collision-texture.png");
 	assetManager->AddTexture("heliport_img", "./assets/images/heliport.png");
+	assetManager->AddFont("charriot-font", "./assets/fonts/charriot.ttf", 14);
 
 	map = new Map("jungle_tilemaps", 2 , 32);
 	map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
@@ -87,6 +93,9 @@ void Game::LoadLevel(int levelNumber)
 	Entity &radarEntity = manager.AddEntity("radar", UI_LAYER);
 	radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
 	radarEntity.AddComponent<SpriteComponent>("radar_img", 8, 100, false, true);
+
+	Entity &labelLevelName(manager.AddEntity("LabelLevelName", UI_LAYER));
+	labelLevelName.AddComponent<TextLabelComponent>(10, 10, "First Level", "charriot-font", WHITE_COLOR);
 
 	//manager.PrintEntityComponent();
 }
@@ -123,13 +132,12 @@ void Game::Update()
 
 void Game::Render()
 {
-    SDL_SetRenderDrawColor(this->renderer, 21, 21, 21, 255);
+    //SDL_SetRenderDrawColor(this->renderer, 21, 21, 21, 255);
     SDL_RenderClear(this->renderer);
 
 	if (manager.HasNoEntities())
 		return ;
 	manager.Render();
-
 
     SDL_RenderPresent(this->renderer);
 }
@@ -152,7 +160,6 @@ void Game::HandleCameraMovement()
 
 void Game::CheckCollisions()
 {
-	std::cout << manager.CheckEntityCollisions() <<std::endl;
 	switch (manager.CheckEntityCollisions())
 	{
 	case PLAYER_ENEMY_COLLISION:

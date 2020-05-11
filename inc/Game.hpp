@@ -18,6 +18,7 @@
 # include "SpriteComponent.hpp"
 # include "ColliderComponent.hpp"
 # include "KeyBoardControlComponent.hpp"
+# include "TextLabelComponent.hpp"
 
 class AssetManager;
 

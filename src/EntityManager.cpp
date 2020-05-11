@@ -78,7 +78,7 @@ void EntityManager::PrintEntityComponent() const
 }
 
 CollisionType EntityManager::CheckEntityCollisions() const
-{//entity->name == "Tile"
+{//esquiver: entity->name == "Tile" / attention odre des entity pour collision 
 
     for (int i = 0; i < entities.size() - 1; i++)
 	{
