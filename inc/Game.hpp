@@ -19,6 +19,7 @@
 # include "ColliderComponent.hpp"
 # include "KeyBoardControlComponent.hpp"
 # include "TextLabelComponent.hpp"
+# include "ProjectileEmitterComponent.hpp"
 
 class AssetManager;
 

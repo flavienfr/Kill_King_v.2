@@ -13,7 +13,7 @@ class Entity;
 class EntityManager
 {
 private:
-	std::vector<Entity *> entities;
+	std::vector<Entity *> entities;//may be slown when deleting entities
 
 public:
 	EntityManager();
@@ -30,7 +30,7 @@ public:
 	CollisionType			CheckEntityCollisions() const;
 
 	//Debug
-	void	PrintEntityComponent() const;
+	void	PrintEntityComponent(bool noTile) const;
 };
 
 #endif

@@ -3,8 +3,9 @@
 ColliderComponent::ColliderComponent(std::string colliderTag, int x, int y, int width, int height) :
 colliderTag(colliderTag), collider({x, y, width, height})
 {
-	//put collider_img in string option
+	//my collion paint debug
 	texture = Game::assetManager->GetTexture("collider_img");
+	srcRect = {0, 0, 32, 32};
 }
 
 ColliderComponent::~ColliderComponent()
@@ -16,7 +17,7 @@ void ColliderComponent::Initialize()
 	if (owner->hasComponent<TransformComponent>())//mettre des protection 
 	{
 		transform = owner->GetComponent<TransformComponent>();
-		srcRect = {0, 0, transform->widht, transform->height};
+		//srcRect = {0, 0, transform->widht, transform->height}; Why init src?
 		dstRect = {collider.x, collider.y, collider.w, collider.h};
 	}
 }

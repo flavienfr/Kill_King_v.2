@@ -70,6 +70,7 @@ void Game::LoadLevel(int levelNumber)
 	assetManager->AddTexture("collider_img", "./assets/images/collision-texture.png");
 	assetManager->AddTexture("heliport_img", "./assets/images/heliport.png");
 	assetManager->AddFont("charriot-font", "./assets/fonts/charriot.ttf", 14);
+	assetManager->AddTexture("projectile_img", "./assets/images/bullet-enemy.png");
 
 	map = new Map("jungle_tilemaps", 2 , 32);
 	map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
@@ -80,9 +81,15 @@ void Game::LoadLevel(int levelNumber)
 	playerEntity.AddComponent<ColliderComponent>("PLAYER", 20, 30, 32, 32);//same value as transform
 
 	Entity &tankEntity = manager.AddEntity("Tank", ENEMY_LAYER);
-	tankEntity.AddComponent<TransformComponent>(0, 400, 20, 0, 32, 32, 2);
+	tankEntity.AddComponent<TransformComponent>(150, 495, 0, 0, 32, 32, 2);
 	tankEntity.AddComponent<SpriteComponent>("tank_img");
-	tankEntity.AddComponent<ColliderComponent>("ENEMY", 0, 400, 32, 32);//same value as transform
+	tankEntity.AddComponent<ColliderComponent>("ENEMY", 150, 495, 32, 32);
+
+	Entity &projectile = manager.AddEntity("projectile", PROJECTILE_LAYER);
+	projectile.AddComponent<TransformComponent>(150+32, 495+32, 0, 0, 4, 4, 2);
+	projectile.AddComponent<SpriteComponent>("projectile_img");
+	projectile.AddComponent<ProjectileEmitterComponent>(50, 323, 200, true);
+	projectile.AddComponent<ColliderComponent>("PROJECTILE", 150+32, 495+32, 4, 4);
 
 
 	Entity &heliportEntity = manager.AddEntity("heliport", OBSTACLE_LAYER);
@@ -97,7 +104,7 @@ void Game::LoadLevel(int levelNumber)
 	Entity &labelLevelName(manager.AddEntity("LabelLevelName", UI_LAYER));
 	labelLevelName.AddComponent<TextLabelComponent>(10, 10, "First Level", "charriot-font", WHITE_COLOR);
 
-	//manager.PrintEntityComponent();
+	//manager.PrintEntityComponent(1);
 }
 
 
@@ -128,6 +135,8 @@ void Game::Update()
 
 	HandleCameraMovement();//before update ?
 	CheckCollisions();
+
+	//manager.PrintEntityComponent(1);
 }
 
 void Game::Render()
@@ -167,6 +176,9 @@ void Game::CheckCollisions()
 		break;
 	case PLAYER_LEVEL_COMPLETE_COLLISION:
 		ProcessNextLevel();
+		break;
+	case PLAYER_PROJECTILE_COLLISION:
+		ProcessGameOver();
 		break;
 	default:
 		break;

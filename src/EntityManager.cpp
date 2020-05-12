@@ -16,8 +16,14 @@ void EntityManager::ClearData()
 
 void EntityManager::Update(float deltaTime)
 {
-	for (auto &entity: this->entities)
-		entity->Update(deltaTime);
+	for (auto it = entities.begin(); it != entities.end(); )
+	{
+		(*it)->Update(deltaTime);
+		if (!(*it)->IsActive())
+		  it = entities.erase(it);
+		else
+			it++;
+	}
 }
 
 void EntityManager::Render()//optimise with data structure
@@ -68,10 +74,12 @@ unsigned int EntityManager::GetEntityCount()
 	return (entities.size());
 }
 
-void EntityManager::PrintEntityComponent() const
+void EntityManager::PrintEntityComponent(bool noTile) const
 {
 	for (int i = 0; i < entities.size(); i++)
 	{
+		if (noTile && entities[i]->name == "Tile")
+		 continue ;
 		std::cout << "Entity "<< i <<": \"" << entities[i]->name << "\"" << std::endl;
 		entities[i]->PrintComponents();
 	}
