@@ -1,12 +1,18 @@
 #include "SpriteComponent.hpp"
 
-SpriteComponent::SpriteComponent(const char *filePath) :
-isAnimated(false), animationSpeed(0), animationIndex(0)
+SpriteComponent::SpriteComponent(std::string assetTextureId) :
+isAnimated(false), animationSpeed(0), animationIndex(0), isFixed(false)
 {
-	SetTexture(filePath);
+	SetTexture(assetTextureId);
 }
 
-SpriteComponent::SpriteComponent(const char *filePath,int numFrames, int animationSpeed, bool hasDirection, bool fixed) :
+SpriteComponent::SpriteComponent(std::string assetTextureId, bool isFixed) :
+isAnimated(false), animationSpeed(0), animationIndex(0), isFixed(isFixed)
+{
+	SetTexture(assetTextureId);
+}
+
+SpriteComponent::SpriteComponent(std::string assetTextureId,int numFrames, int animationSpeed, bool hasDirection, bool fixed) :
 isAnimated(true), animationSpeed(animationSpeed), isFixed(fixed), animationIndex(0)
 {
 	if (hasDirection)
@@ -33,7 +39,7 @@ isAnimated(true), animationSpeed(animationSpeed), isFixed(fixed), animationIndex
 	}
 	Play(currentAnimationName);
 
-	SetTexture(filePath);
+	SetTexture(assetTextureId);
 }
 
 SpriteComponent::~SpriteComponent()

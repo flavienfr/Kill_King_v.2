@@ -25,6 +25,7 @@ public:
 	bool 					HasNoEntities();
 	Entity					&AddEntity(std::string entityName, LayerType layer);
 	std::vector<Entity *>	GetEntities() const;//return ref is better ?
+	Entity					*GetEntityByName(std::string entityName) const;//for loop again
 	std::vector<Entity *>	GetEntitiesByLayer(LayerType layer) const;//return ref is better ?
 	unsigned int			GetEntityCount();
 	CollisionType			CheckEntityCollisions() const;

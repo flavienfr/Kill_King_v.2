@@ -4,7 +4,7 @@ ColliderComponent::ColliderComponent(std::string colliderTag, int x, int y, int 
 colliderTag(colliderTag), collider({x, y, width, height})
 {
 	//my collion paint debug
-	texture = Game::assetManager->GetTexture("collider_img");
+	texture = Game::assetManager->GetTexture("collider-texture");
 	srcRect = {0, 0, 32, 32};
 }
 

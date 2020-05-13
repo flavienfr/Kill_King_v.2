@@ -6,6 +6,7 @@
 # include <SDL2/SDL_ttf.h>
 # include <iostream>
 # include "glm.hpp"
+# include "sol.hpp"
 
 # include "Entity.hpp"
 # include "Component.hpp"

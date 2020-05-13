@@ -18,14 +18,15 @@ private:
 	bool								isAnimated;
 	int									numFrames;
 	int									animationSpeed;
-	int									isFixed;
+	bool								isFixed;
 	std::map<std::string, Animation>	animations;
 	std::string							currentAnimationName;
 	unsigned int						animationIndex;
 
 public:
-	SpriteComponent(const char *filePath);
-	SpriteComponent(const char *filePath, int frames, int animationSpeed, bool hasDirection, bool fixed);
+	SpriteComponent(std::string assetTextureId);
+	SpriteComponent(std::string assetTextureId, bool isFixed);
+	SpriteComponent(std::string assetTextureId, int frames, int animationSpeed, bool hasDirection, bool fixed);
 	~SpriteComponent();
 
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
