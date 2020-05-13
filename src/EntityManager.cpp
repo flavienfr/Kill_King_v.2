@@ -28,6 +28,8 @@ void EntityManager::Update(float deltaTime)
 
 void EntityManager::Render()//optimise with data structure
 {
+	if (manager.HasNoEntities())
+		return ;
 	for (int layerNumber = 0; layerNumber < NUM_LAYER; layerNumber++)
 	{
 		for (auto &entity: GetEntitiesByLayer(static_cast<LayerType>(layerNumber)))

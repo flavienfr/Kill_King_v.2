@@ -280,19 +280,15 @@ void Game::Update()
 
 	manager.Update(deltaTime);
 
-	HandleCameraMovement();//before update ?
+	HandleCameraMovement();
 	CheckCollisions();
-
 	//manager.PrintEntityComponent(1);
 }
 
 void Game::Render()
 {
-	//SDL_SetRenderDrawColor(this->renderer, 21, 21, 21, 255);
 	SDL_RenderClear(this->renderer);
 
-	if (manager.HasNoEntities())
-		return ;
 	manager.Render();
 
 	SDL_RenderPresent(this->renderer);
@@ -303,10 +299,8 @@ void Game::HandleCameraMovement()
 	if (mainPlayer)
 	{
 		TransformComponent *PlayerTransform = mainPlayer->GetComponent<TransformComponent>();
-		camera.x = PlayerTransform->position.x - (camera.w / 2);
-		camera.y = PlayerTransform->position.y - (camera.h / 2);
-		//camera.x = static_cast<int>(PlayerTransform->position.x) - (static_cast<int>(WINDOW_WIDTH)/ 2);
-		//camera.y = static_cast<int>(PlayerTransform->position.y) - (static_cast<int>(WINDOW_HEIGHT) / 2);
+		camera.x = static_cast<int>(PlayerTransform->position.x) - (camera.w / 2);
+		camera.y = static_cast<int>(PlayerTransform->position.y) - (camera.h / 2);
 
 		camera.x = camera.x < 0 ? 0 : camera.x;
 		camera.y = camera.y < 0 ? 0 : camera.y;

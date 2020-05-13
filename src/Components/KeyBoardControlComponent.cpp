@@ -17,13 +17,14 @@ KeyBoardControlComponent::~KeyBoardControlComponent()
 {
 }
 
-std::string KeyBoardControlComponent::GetSDLKeyCode(std::string key)//pourquoi cette fonction 
+std::string KeyBoardControlComponent::GetSDLKeyCode(std::string key)
 {
 	if (key == "up") return (std::to_string(SDLK_UP));
 	if (key == "down") return (std::to_string(SDLK_DOWN));
 	if (key == "right") return (std::to_string(SDLK_RIGHT));
 	if (key == "left") return (std::to_string(SDLK_LEFT));
-	if (key == "space") return (std::to_string(SDLK_SPACE));;
+	if (key == "space") return (std::to_string(SDLK_SPACE));
+
 	return (std::to_string(static_cast<int>(key[0])));//return assci table char
 }
 
