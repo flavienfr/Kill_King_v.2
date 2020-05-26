@@ -10,8 +10,8 @@ TileComponent::TileComponent(int srcRectX, int srcRectY, int x, int y, int tileS
 
 	this->dstRect.x = x;
 	this->dstRect.y = y;
-	this->dstRect.w = tileSize *tileScale;
-	this->dstRect.h = tileSize *tileScale;
+	this->dstRect.w = tileSize * tileScale;
+	this->dstRect.h = tileSize * tileScale;
 
 	this->position.x = x;
 	this->position.y = y;
@@ -30,5 +30,6 @@ void TileComponent::Update(float deltaItme)
 
 void TileComponent::Render()
 {//Do no draw if ouside the screean area
-	TextureManager::Draw(texture, srcRect, dstRect, SDL_FLIP_NONE);
+	//if (Collision::CheckRectCollision(Game::camera, dstRect))
+		TextureManager::Draw(texture, srcRect, dstRect, SDL_FLIP_NONE);
 }

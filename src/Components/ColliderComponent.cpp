@@ -10,11 +10,13 @@ colliderTag(colliderTag), collider({x, y, width, height})
 
 ColliderComponent::~ColliderComponent()
 {
+	//std::cout << "destructor ColliderComponent" << std::endl;
+	SDL_DestroyTexture(texture);
 }
 
 void ColliderComponent::Initialize()
 {
-	if (owner->hasComponent<TransformComponent>())//mettre des protection 
+	if (owner->HasComponent<TransformComponent>())//mettre des protection 
 	{
 		transform = owner->GetComponent<TransformComponent>();
 		//srcRect = {0, 0, transform->widht, transform->height}; Why init src?
@@ -24,7 +26,7 @@ void ColliderComponent::Initialize()
 
 void ColliderComponent::Update(float deltaTime)
 {
-	if (owner->hasComponent<TransformComponent>())
+	if (owner->HasComponent<TransformComponent>())
 	{
 		collider.x = static_cast<int>(transform->position.x);
 		collider.y = static_cast<int>(transform->position.y);
@@ -34,6 +36,8 @@ void ColliderComponent::Update(float deltaTime)
 		dstRect.y = collider.y - Game::camera.y;
 		dstRect.w = collider.w;//dst for camera
 		dstRect.h = collider.h;//dst for camera
+
+		dstRect = Game::camera;//debug camera collision
 	}
 }
 

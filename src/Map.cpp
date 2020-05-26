@@ -9,30 +9,41 @@ Map::~Map()
 {
 }
 
-void Map::LoadMap(std::string filePath, int mapSizeX, int mapSizeY)
-{// change this funtcion for a bigger tile map
-	std::fstream mapFile;
+void Map::LoadMap(std::string folderPath, int AssetSizeX, int nbLayer)
+{
+	std::fstream	mapFile;
+	std::string		line;
 
-	mapFile.open(filePath);
-	for (int y = 0; y < mapSizeY ; y++)
+	for (int layer = 0; layer < nbLayer; layer++)
 	{
-		for (int x = 0; x < mapSizeX ; x++)
+		mapFile.open(folderPath + std::to_string(layer) + ".csv");
+		if (!mapFile.is_open())
+			std::cerr << "File map " << folderPath + std::to_string(layer) + "csv" << " not open" << std::endl;
+		int	y = 0;
+		while (getline(mapFile, line))
 		{
-			char c;
-			mapFile.get(c);
-			int srcRecY = atoi(&c) * tileSize;
-			mapFile.get(c);
-			int srcRecX = atoi(&c) * tileSize;
-			AddTile(srcRecX, srcRecY, x * (tileSize * scale), y * (tileSize * scale));
-			mapFile.ignore();
+			std::stringstream	ss(line);
+			std::string			value;
+			int	x = 0;
+			while (getline(ss, value, ','))
+			{
+				if (stoi(value) != -1)
+				{
+					int srcRecY = (stoi(value) / AssetSizeX) * tileSize;
+					int srcRecX = (stoi(value) % AssetSizeX) * tileSize;
+					AddTile(srcRecX, srcRecY, x * (tileSize * scale), y * (tileSize * scale), static_cast<LayerType>(layer));
+				}
+				x++;
+			}
+			y++;
 		}
+		mapFile.close();
 	}
-	mapFile.close();
 }
 
-void Map::AddTile(int srcRectX, int srcRectY, int x, int y)
+void Map::AddTile(int srcRectX, int srcRectY, int x, int y, LayerType layer)
 {
-	Entity &newTile = manager.AddEntity("Tile", TILEMAP_LAYER);
+	Entity &newTile = manager.AddEntity("Tile", layer);
 
 	newTile.AddComponent<TileComponent>(srcRectX, srcRectY, x, y, tileSize, scale, textureId);
 }

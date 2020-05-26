@@ -11,6 +11,11 @@ AssetManager::~AssetManager()
 
 void AssetManager::ClearData()
 {
+	//std::cout << "AssetManager ClearData"<< std::endl;
+	for (auto &texture: textures)//do we need to do that
+		SDL_DestroyTexture(texture.second);
+	for (auto &font: fonts)//do we need to do that
+		TTF_CloseFont(font.second);
 	textures.clear();
 	fonts.clear();
 }

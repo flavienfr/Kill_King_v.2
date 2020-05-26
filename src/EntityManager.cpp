@@ -6,12 +6,14 @@ EntityManager::EntityManager()
 
 EntityManager::~EntityManager()
 {
+	ClearData();
 }
 
 void EntityManager::ClearData()
 {
 	for (auto &entity: this->entities)
-		entity->Destroy();
+		delete entity;
+	entities.clear();
 }
 
 void EntityManager::Update(float deltaTime)
@@ -20,7 +22,11 @@ void EntityManager::Update(float deltaTime)
 	{
 		(*it)->Update(deltaTime);
 		if (!(*it)->IsActive())
+		{
 		  it = entities.erase(it);
+		  //delete *it;
+		  //std::cout << "update killer" << std::endl;
+		}
 		else
 			it++;
 	}
@@ -107,7 +113,7 @@ CollisionType EntityManager::CheckEntityCollisions() const
             for (int j = i + 1; j < entities.size(); j++)
 			{
                 auto& thatEntity = entities[j];
-				if (thisEntity->name != thatEntity->name && thatEntity->hasComponent<ColliderComponent>())
+				if (thisEntity->name != thatEntity->name && thatEntity->HasComponent<ColliderComponent>())
 				{
 					ColliderComponent *thatCollider = thatEntity->GetComponent<ColliderComponent>();
 					if (Collision::CheckRectCollision(thisCollider->collider, thatCollider->collider))

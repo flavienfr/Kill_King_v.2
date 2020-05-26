@@ -21,14 +21,16 @@ enum CollisionType
 
 enum LayerType
 {
-	TILEMAP_LAYER,
+	TILEMAP_LAYER_1,
+	TILEMAP_LAYER_2,
+	TILEMAP_LAYER_3,
 	VEGETATION_LAYER,
 	OBSTACLE_LAYER,
 	ENEMY_LAYER,
 	PLAYER_LAYER,
 	PROJECTILE_LAYER,
 	UI_LAYER
-}; const unsigned int NUM_LAYER = 7;
+}; const unsigned int NUM_LAYER = 9;
 
 const SDL_Color WHITE_COLOR = {255, 255, 255, 255};
 const SDL_Color GREEN_COLOR = {0, 255, 0, 255};

@@ -13,6 +13,11 @@ manager(manager), name(name), layer(layer)
 
 Entity::~Entity()
 {
+	//std::cout << "destructor Entity" << std::endl;
+	for (auto &component: components)
+		delete component;
+	components.clear();
+	componentTypeMap.clear();//type info is delete ?
 }
 
 void Entity::Update(float deltaTime)

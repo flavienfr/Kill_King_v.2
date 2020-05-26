@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="left-up" width="5" height="5" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+ <editorsettings>
+  <export target="../map_2/map_2" format="csv"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../Texturepack/WorldMapFull.tsx"/>
+ <layer id="1" name="0" width="5" height="5">
+  <data encoding="csv">
+133,133,133,133,133,
+133,133,133,133,133,
+133,133,133,133,139,
+133,133,133,133,133,
+133,133,133,133,133
+</data>
+ </layer>
+ <layer id="2" name="1" width="5" height="5">
+  <data encoding="csv">
+0,0,0,0,0,
+9521,9522,9523,9524,0,
+9541,9542,9543,9544,0,
+9561,9562,9563,9564,0,
+0,0,0,0,0
+</data>
+ </layer>
+</map>

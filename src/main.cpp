@@ -15,7 +15,8 @@ int main(int ac, char *av[])
         game->Render();
     }
 
-    game->Destroy();
+    //game->Destroy();
+	delete game;
 
     return (0); 
 }

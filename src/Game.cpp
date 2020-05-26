@@ -1,6 +1,6 @@
 # include "Game.hpp"
 
-EntityManager	manager;//mettre ca static public ?
+EntityManager	manager;
 AssetManager	*Game::assetManager = new AssetManager(&manager);
 SDL_Renderer	*Game::renderer;
 SDL_Event		Game::event;
@@ -14,6 +14,13 @@ Game::Game() : isRunning(false), ticksLastFrame(0)
 
 Game::~Game()
 {
+	std::cout << "Game destructor"<< std::endl;
+	delete assetManager;
+	delete map;
+
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 }
 
 bool Game::IsRunning() const
@@ -102,7 +109,7 @@ void Game::LoadLevel(int levelNumber)
 	/************************************************************/
 	sol::table levelMap = levelData["map"];
 	std::string mapTextureId = levelMap["textureAssetId"];
-	std::string mapFile = levelMap["file"];
+	std::string mapFile = levelMap["folder"];
 
 	map = new Map
 	(
@@ -113,8 +120,10 @@ void Game::LoadLevel(int levelNumber)
 	map->LoadMap
 	(
 		mapFile,
-		static_cast<int>(levelMap["mapSizeX"]),
-		static_cast<int>(levelMap["mapSizeY"])
+		//static_cast<int>(levelMap["mapSizeX"]),
+		//static_cast<int>(levelMap["mapSizeY"]),
+		static_cast<int>(levelMap["AssetSizeX"]),
+		static_cast<int>(levelMap["layer"])
 	);
 	/************************************************************/
 	/*	  LOADS ENTITIES AND COMPONENTS FROM LUA CONFIG FILE	*/
@@ -252,7 +261,7 @@ void Game::LoadLevel(int levelNumber)
 	}
 	mainPlayer = manager.GetEntityByName("player");
 
-	manager.PrintEntityComponent(1);
+	//manager.PrintEntityComponent(1);
 }
 
 void Game::ProcessInput()
@@ -302,11 +311,11 @@ void Game::HandleCameraMovement()
 		camera.x = static_cast<int>(PlayerTransform->position.x) - (camera.w / 2);
 		camera.y = static_cast<int>(PlayerTransform->position.y) - (camera.h / 2);
 
-		camera.x = camera.x < 0 ? 0 : camera.x;
-		camera.y = camera.y < 0 ? 0 : camera.y;
+		//camera.x = camera.x < 0 ? 0 : camera.x;
+		//camera.y = camera.y < 0 ? 0 : camera.y;
 		//CHange this by border of map (widhtMap + camera.w)
-		camera.x = camera.x > camera.w ? camera.w : camera.x;
-		camera.y = camera.y > camera.h ? camera.h : camera.y;
+		//camera.x = camera.x > camera.w ? camera.w : camera.x;
+		//camera.y = camera.y > camera.h ? camera.h : camera.y;
 	}
 }
 
@@ -342,7 +351,7 @@ void Game::ProcessGameOver()
 
 void Game::Destroy()
 {
-	SDL_DestroyRenderer(this->renderer);
-	SDL_DestroyWindow(this->window);
-	SDL_Quit();
+	//SDL_DestroyRenderer(this->renderer);
+	//SDL_DestroyWindow(this->window);
+	//SDL_Quit();
 }
